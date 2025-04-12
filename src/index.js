@@ -7,6 +7,7 @@ import helmet from "helmet"
 import rateLimit from "express-rate-limit"
 import cors from "cors"
 import { FRONTEND_ORIGIN, NODE_ENV, PORT } from "./config/env.js"
+import { AppError, handleError } from "./middleware/error.middleware.js"
 
 dotenv.config({ path: "./.env" })
 
@@ -63,10 +64,14 @@ app.use(
 
 //handle 404 route
 app.use((req, res) => {
-    res.status(404).json({ succes: false, message: "This route does not exists" })
+    throw new AppError(404,"This route does not exists")
 })
 
 
+
+//handle global error
+
+app.use(handleError)
 app.listen(PORT, () => {
     console.log(`Server is running on PORT :${PORT}`)
 })

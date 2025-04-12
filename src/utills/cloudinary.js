@@ -1,6 +1,7 @@
 import { v2 as cloudinary } from 'cloudinary';
 import fs from "fs"
 import { CLOUDINARY_API_KEY, CLOUDINARY_API_SECRET, CLOUDINARY_NAME } from '../config/env.js';
+import { AppError } from '../middleware/error.middleware.js';
 
 
 cloudinary.config({
@@ -20,7 +21,7 @@ const uploadCloudinary = async function (localPath) {
 
         //if any error occur also delete the file
         fs.unlinkSync(localPath)
-        throw new Error("Error occur while uploading the file")
+        throw new AppError(401,"Error occur while uploading the file")
     }
 }
 
