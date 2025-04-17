@@ -8,12 +8,16 @@ import rateLimit from "express-rate-limit"
 import cors from "cors"
 import { FRONTEND_ORIGIN, NODE_ENV, PORT } from "./config/env.js"
 import { AppError, handleError } from "./middleware/error.middleware.js"
-
+import dbConnection from "./config/dbConnection.js"
 dotenv.config({ path: "./.env" })
 
 
 
 const app = express()
+
+//mongodb Connection
+
+dbConnection()
 
 //rate limiter
 

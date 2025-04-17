@@ -7,6 +7,8 @@ const PORT = process.env.PORT
 const FRONTEND_ORIGIN = process.env.FRONTEND_ORIGIN
 const NODE_ENV = process.env.NODE_ENV
 
+const MONGODB_URI = process.env.MONGODB_URI
+
 
 
 
@@ -24,5 +26,6 @@ export {
     NODE_ENV,
     CLOUDINARY_NAME,
     CLOUDINARY_API_KEY,
-    CLOUDINARY_API_SECRET
+    CLOUDINARY_API_SECRET,
+    MONGODB_URI
 }
