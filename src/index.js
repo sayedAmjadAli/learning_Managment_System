@@ -66,16 +66,28 @@ app.use(
 
 
 
+
+
+//import routes here
+
+import healthcheckRoute from "./route/health.route.js"
+
+
+//use routes here
+
+app.use("/api/health",healthcheckRoute)
+
+
 //handle 404 route
 app.use((req, res) => {
     throw new AppError(404,"This route does not exists")
 })
 
-
-
 //handle global error
 
 app.use(handleError)
+
+
 app.listen(PORT, () => {
     console.log(`Server is running on PORT :${PORT}`)
 })
