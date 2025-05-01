@@ -4,10 +4,11 @@ import { CLOUDINARY_API_KEY, CLOUDINARY_API_SECRET, CLOUDINARY_NAME } from '../c
 import { AppError } from '../middleware/error.middleware.js';
 
 
+
 cloudinary.config({
     cloud_name: CLOUDINARY_NAME,
     api_key: CLOUDINARY_API_KEY,
-    api_secret: CLOUDINARY_API_SECRET 
+    api_secret: CLOUDINARY_API_SECRET
 });
 
 const uploadCloudinary = async function (localPath) {
@@ -21,9 +22,22 @@ const uploadCloudinary = async function (localPath) {
 
         //if any error occur also delete the file
         fs.unlinkSync(localPath)
-        throw new AppError(401,"Error occur while uploading the file")
+        throw new AppError(401, "Error occur while uploading the file")
     }
 }
 
 
-export {uploadCloudinary}
+const deleteResourseFromCloudinary = async (publicId) => {
+    try {
+        const response = await cloudinary.uploader.destroy(publicId)
+        console.log("Resource Deleted successfully")
+        return response
+    } catch (error) {
+        throw new AppError(400, `Error occur while deleting resource from cloudinary ! ${error.message}`)
+
+    }
+}
+export {
+    uploadCloudinary,
+    deleteResourseFromCloudinary
+}
