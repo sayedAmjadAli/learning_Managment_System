@@ -19,6 +19,8 @@ const app = express()
 
 dbConnection()
 
+
+
 //rate limiter
 
 const limiter = rateLimit({
@@ -29,13 +31,17 @@ const limiter = rateLimit({
     legacyHeaders: false,
 })
 
+//parsebody
 
+app.use(express.json({limit:"16kb"}))
+app.use(express.urlencoded({extended:false,limit:"16kb"}))
 
 //security packages
 
 app.use(hpp())
 app.use(helmet())
 app.use("/api",limiter)
+
 
 
 if(NODE_ENV==="development"){
@@ -71,11 +77,12 @@ app.use(
 //import routes here
 
 import healthcheckRoute from "./route/health.route.js"
-
+import userRoute from "./route/user.route.js"
 
 //use routes here
 
 app.use("/api/health",healthcheckRoute)
+app.use("/api/user",userRoute)
 
 
 //handle 404 route

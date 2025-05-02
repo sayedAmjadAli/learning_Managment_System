@@ -120,9 +120,9 @@ userSchema.methods.generateVerifyAccountToken=function (){
 }
 
 
-userSchema.virtuals("totalEnrolledCourses")=function (){
+userSchema.virtual("totalEnrolledCourses").get(function (){
     return this.enrolledCourses?.length
-}
+})
 
 
 userSchema.methods.updateLastActive=function (){
